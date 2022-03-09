@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 
 const FittsTask: React.FC = () => {
   const numBubbles: number = 9;
   const width = 15;
   const distance = 75;
+
+  // Store some state that determines which circle is the one the user should be clicking on.
+  const [selectedCircle, setSelectedCircle] = useState(0);
 
   return (
     // To make things easy we place 0,0 in the center of the svg.
@@ -15,11 +18,21 @@ const FittsTask: React.FC = () => {
 
         return (
           <circle
+            // When the user clicks on the circle we need to highlight the next circle
+            onClick={() => {
+              if (i === selectedCircle) {
+                const nextCircle =
+                  (selectedCircle + Math.floor(numBubbles / 2)) % numBubbles;
+
+                setSelectedCircle(nextCircle);
+              }
+            }}
             r={width / 2}
             // Use the slice for this circle to determine where the circle goes.
             cx={(Math.cos(theta) * distance) / 2}
             cy={(Math.sin(theta) * distance) / 2}
-            fill={"red"}
+            // Color the circle based on whether the user should be clicking on it.
+            fill={selectedCircle === i ? "red" : "lightgrey"}
           />
         );
       })}
