@@ -51,7 +51,7 @@ export const StudyRouter: React.FC = () => {
       />
     );
   } else if (studyState === "Finish") {
-    return <Finish />;
+    return <Finish logs={logs} />;
   }
 
   throw new Error("Study state not found.");
