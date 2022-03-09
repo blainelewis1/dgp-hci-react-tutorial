@@ -1,7 +1,8 @@
 // This is basically the entry point of your entire application.
+import FittsTask from "./FittsTask";
 
 function App() {
-  return <div>Hello world</div>;
+  return <FittsTask />;
 }
 
 export default App;
