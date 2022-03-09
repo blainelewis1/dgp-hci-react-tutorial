@@ -5,7 +5,8 @@ const FittsTask: React.FC<{
   width?: number;
   distance?: number;
   setNextState: () => void;
-}> = ({ numBubbles = 9, width = 15, distance = 75, setNextState }) => {
+  onLog: (data: object) => void;
+}> = ({ numBubbles = 9, width = 15, distance = 75, setNextState, onLog }) => {
   // Store some state that determines which circle is the one the user should be clicking on.
   const [selectedCircle, setSelectedCircle] = useState(0);
 
@@ -30,6 +31,8 @@ const FittsTask: React.FC<{
                 if (nextCircle === 0) {
                   setNextState();
                 }
+
+                onLog({ theta, id: i });
               }
             }}
             r={width / 2}

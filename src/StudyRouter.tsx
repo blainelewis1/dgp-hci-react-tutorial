@@ -6,8 +6,21 @@ import Finish from "./Finish";
 
 type StudyState = "Consent" | "FittsBlock1" | "FittsBlock2" | "Finish";
 
+export interface FittsLog {
+  timestamp: number;
+  block: string;
+  data: object;
+}
+
 export const StudyRouter: React.FC = () => {
   const [studyState, setStudyState] = useState<StudyState>("Consent");
+
+  const [logs, setLogs] = useState<Array<FittsLog>>([]);
+  const logData = (data: object) =>
+    setLogs([
+      ...logs,
+      { timestamp: Date.now(), block: studyState, data: data },
+    ]);
 
   if (studyState === "Consent") {
     return (
@@ -23,6 +36,7 @@ export const StudyRouter: React.FC = () => {
         setNextState={() => {
           setStudyState("FittsBlock2");
         }}
+        onLog={logData}
       />
     );
   } else if (studyState === "FittsBlock2") {
@@ -33,6 +47,7 @@ export const StudyRouter: React.FC = () => {
         setNextState={() => {
           setStudyState("Finish");
         }}
+        onLog={logData}
       />
     );
   } else if (studyState === "Finish") {
