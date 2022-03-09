@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 
-const FittsTask: React.FC = () => {
-  const numBubbles: number = 9;
-  const width = 15;
-  const distance = 75;
-
+const FittsTask: React.FC<{
+  numBubbles?: number;
+  width?: number;
+  distance?: number;
+  setNextState: () => void;
+}> = ({ numBubbles = 9, width = 15, distance = 75, setNextState }) => {
   // Store some state that determines which circle is the one the user should be clicking on.
   const [selectedCircle, setSelectedCircle] = useState(0);
 
@@ -25,6 +26,10 @@ const FittsTask: React.FC = () => {
                   (selectedCircle + Math.floor(numBubbles / 2)) % numBubbles;
 
                 setSelectedCircle(nextCircle);
+
+                if (nextCircle === 0) {
+                  setNextState();
+                }
               }
             }}
             r={width / 2}

@@ -3,7 +3,7 @@ import { useState } from "react";
 import ConsentScreen from "./ConsentScreen";
 import FittsTask from "./FittsTask";
 
-type StudyState = "Consent" | "Fitts";
+type StudyState = "Consent" | "FittsBlock1" | "FittsBlock2";
 
 export const StudyRouter: React.FC = () => {
   const [studyState, setStudyState] = useState<StudyState>("Consent");
@@ -12,12 +12,28 @@ export const StudyRouter: React.FC = () => {
     return (
       <ConsentScreen
         setNextState={() => {
-          setStudyState("Fitts");
+          setStudyState("FittsBlock1");
         }}
       />
     );
-  } else if (studyState === "Fitts") {
-    return <FittsTask />;
+  } else if (studyState === "FittsBlock1") {
+    return (
+      <FittsTask
+        setNextState={() => {
+          setStudyState("FittsBlock2");
+        }}
+      />
+    );
+  } else if (studyState === "FittsBlock2") {
+    return (
+      <FittsTask
+        width={10}
+        distance={30}
+        setNextState={() => {
+          // TODO:
+        }}
+      />
+    );
   }
 
   throw new Error("Study state not found.");
