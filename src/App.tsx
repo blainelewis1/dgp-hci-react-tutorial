@@ -1,8 +1,9 @@
 // This is basically the entry point of your entire application.
-import FittsTask from "./FittsTask";
+
+import StudyRouter from "./StudyRouter";
 
 function App() {
-  return <FittsTask />;
+  return <StudyRouter />;
 }
 
 export default App;
