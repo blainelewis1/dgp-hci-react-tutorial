@@ -2,8 +2,9 @@ import { useState } from "react";
 
 import ConsentScreen from "./ConsentScreen";
 import FittsTask from "./FittsTask";
+import Finish from "./Finish";
 
-type StudyState = "Consent" | "FittsBlock1" | "FittsBlock2";
+type StudyState = "Consent" | "FittsBlock1" | "FittsBlock2" | "Finish";
 
 export const StudyRouter: React.FC = () => {
   const [studyState, setStudyState] = useState<StudyState>("Consent");
@@ -34,6 +35,8 @@ export const StudyRouter: React.FC = () => {
         }}
       />
     );
+  } else if (studyState === "Finish") {
+    return <Finish />;
   }
 
   throw new Error("Study state not found.");
